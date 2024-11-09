@@ -55,11 +55,10 @@ public class CLIValidation implements ICLIValidation {
 		System.out.println("Validation processing finished successfully.");						
 	}
 
-
 	/**
 	 * Method to run the validation from command line.
 	 * @param inputFolder Path of a folder, all .xml files will be validated as an x-rechnung
-	 * @param outputFolder Path (folder) where the report file (html) should be written, the output filename will be {{filename}}.report.html
+	 * @param outputFolder Path of a folder where the report file (html) should be written, the output filename will be {{filename}}.report.html
 	 * @param valiVersion Version against which should be validated (must be a valid version number from the list of versions [available_valiVersions] in the App configuration file)
 	 * @param config Path to the App configuration file
 	 * @throws Exception Unspecific exception

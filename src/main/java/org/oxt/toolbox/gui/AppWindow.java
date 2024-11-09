@@ -434,6 +434,12 @@ public class AppWindow {
             			CLIVisualization visualization = new CLIVisualization();
             			visualization.cliVisualization(cmd.getOptionValue("input"), cmd.getOptionValue("output"), cmd.hasOption("pdf"), config);
             		}
+					// beg ch
+					else if (cmd.hasOption("inputfolder") & cmd.hasOption("outputfolder")) {
+						CLIVisualization visualization = new CLIVisualization();
+						visualization.cliVisualizationFolder(cmd.getOptionValue("inputfolder"), cmd.getOptionValue("outputfolder"), cmd.hasOption("pdf"), config);
+					}
+					// end ch
             		else {
             			throw new ParseException("not enough arguments for cli visualition");
             		}
