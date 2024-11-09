@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.oxt.toolbox.helpers.AppProperties;
@@ -75,4 +76,66 @@ public class ValidatorImpl implements IValidator {
 		}		
 	}
 
+	// beg ch
+
+	String cached_valiVersion;
+	Configuration cached_config;
+	Check cached_validator;
+
+	/**
+	 * Loads the configuration and prepares the validator for the given valiVersion into an internal cache.
+	 * Subsequent calls to runValidationForValiVersion() will use the cached, provided the valiVersion matches.
+	 * @param valiVersion
+	 */
+	public void loadConfiguration(String valiVersion) {
+
+		// Stuff already cached?
+		if (Objects.equals(cached_valiVersion, valiVersion) && cached_config != null && cached_validator != null) {
+			return;
+		}
+
+		// Clear cache
+		cached_valiVersion = null;
+		cached_config = null;
+		cached_validator = null;
+
+		// Loading validator into cached, code is copied from runValidation() above
+		File scenarios = new File(AppProperties.prop.getProperty("validator.scenario." + valiVersion));
+
+		Configuration config = (Configuration) Configuration.load(scenarios.toURI()).build(ProcessorProvider.getProcessor());
+
+		Check validator = new DefaultCheck(config);
+
+		// Ok, fill cache
+		cached_valiVersion = valiVersion;
+		cached_config = config;
+		cached_validator = validator;
+	}
+
+	/**
+	 * Runs the validation.
+	 * If loadConfiguration() has been called before with a matching valiVersion, then the cached configuration and validator will be used, speeding the process up quite a bit.
+	 * Otherwise, the configuration and validator will be reloaded as needed.
+	 */
+	public String runValidationForValiVersion(String invoicePath, String valiVersion) throws IOException, Exception {
+
+		loadConfiguration(valiVersion);
+
+		this.invoicePath = invoicePath;
+		Path testDoc = Paths.get(invoicePath);
+
+		// Validate a single document
+		Input document = InputFactory.read(testDoc);
+
+		// Get Result including information about the whole validation
+		Result report = cached_validator.checkInput(document);
+
+		// Get report document if processing was successful
+		DefaultResult result = (DefaultResult) report;
+		List<String> htmls = result.extractHtmlAsString();
+		this.html = StringUtils.join(htmls, "");
+		return this.html;
+	}
+
+	// end ch
 }

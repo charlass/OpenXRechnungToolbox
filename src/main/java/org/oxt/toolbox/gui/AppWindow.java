@@ -389,6 +389,15 @@ public class AppWindow {
         configOption.setRequired(false);
         baseOptions.addOption(configOption);
 
+		// beg ch
+		Option vizInputFolderOption = new Option("if", "inputfolder", true, "input invoice folder path for cli.");
+		vizInputFolderOption.setRequired(false);
+		baseOptions.addOption(vizInputFolderOption);
+		Option vizOutputFolderOption = new Option("of", "outputfolder", true, "output folder path for cli.");
+		vizOutputFolderOption.setRequired(false);
+		baseOptions.addOption(vizOutputFolderOption);
+		// end ch
+
         org.apache.commons.cli.CommandLineParser parser = new org.apache.commons.cli.DefaultParser();
         HelpFormatter help = new HelpFormatter();
 
@@ -434,6 +443,12 @@ public class AppWindow {
             			CLIValidation validation = new CLIValidation();
             			validation.cliValidation(cmd.getOptionValue("input"), cmd.getOptionValue("output"), cmd.getOptionValue("valiversion"), config);            			
             		}
+					// beg ch
+            		else if (cmd.hasOption("inputfolder") & cmd.hasOption("outputfolder") & cmd.hasOption("valiversion")) {
+            			CLIValidation validation = new CLIValidation();
+            			validation.cliValidationFolder(cmd.getOptionValue("inputfolder"), cmd.getOptionValue("outputfolder"), cmd.getOptionValue("valiversion"), config);
+            		}
+					// end ch
             		else {
             			throw new ParseException("not enough arguments for cli validation");
             		}            		

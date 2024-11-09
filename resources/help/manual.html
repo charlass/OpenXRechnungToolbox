@@ -535,9 +535,15 @@ Released   : 20130801
 			<i>OpenXRechnungToolbox.exe -val -i exampleInvoices\XRechnung_v3.0.2\01.01a-INVOICE_ubl.xml -o testreport1.html -v 3.0.2</i>.
 			</p>
 			<p class="h4">
-			Die Parameter sind: <br />
+			Die Parameter für die Validierung einer einzelnen Datei sind: <br />
 			<i>-i</i> bzw. <i>--input</i>: Pfad zu der zu validierenden Rechnung <br />
 			<i>-o</i> bzw. <i>--output</i>: Pfad unter dem der Report gespeichert werden soll <br />
+			<i>-v</i> bzw. <i>--valiversion</i>: Spezifikation der Prüftoolkonfiguration, gegen die die Rechnung validiert werden soll. Zulässige Werte finden sich in der Variable <i>available_valiVersions</i> aus der Datei <i>resources/app.config</i>.<br />
+			</p>
+			<p class="h4">
+			Die Parameter für die Validierung eines kompletten Ordners sind: <br />
+			<i>-if</i> bzw. <i>--inputfolder</i>: Pfad zu einem Verzeichnis, der die zu validierenden Rechnungen (XML-Dateien) enthält <br />
+			<i>-of</i> bzw. <i>--outputfolder</i>: Pfad zu einem Verzeichnis, in dem die Reports gespeichert werden. Der Report-Dateiname wird aus dem XML-Dateiname und der Endung ".report.html" gebildet. <br />
 			<i>-v</i> bzw. <i>--valiversion</i>: Spezifikation der Prüftoolkonfiguration, gegen die die Rechnung validiert werden soll. Zulässige Werte finden sich in der Variable <i>available_valiVersions</i> aus der Datei <i>resources/app.config</i>.<br />
 			</p>
 
