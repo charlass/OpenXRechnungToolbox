@@ -92,7 +92,7 @@ public class CLIVisualization implements ICLIVisualization {
 			File inputFile = inputFiles[i];
 			System.out.println("Processing file " + (i+1) + "/" + inputFiles.length + ": " + inputFile.getAbsolutePath());
 
-			String outputViz = outputDir.getAbsolutePath() + '\\' + inputFile.getName().replace(".xml", ".visualization.html");
+			String outputViz = outputDir.getAbsolutePath() + File.separatorChar + inputFile.getName().replace(".xml", ".visualization.html");
 
 			VisualizerImpl viz = new VisualizerImpl();
 			viz.runVisualization(inputFile.getAbsolutePath(), AppProperties.prop.getProperty("viz.intermediate.ubl.xsl"), AppProperties.prop.getProperty("viz.intermediate.ublcn.xsl"), AppProperties.prop.getProperty("viz.intermediate.cii.xsl"), AppProperties.prop.getProperty("viz.html.xsl"));

@@ -104,7 +104,7 @@ public class CLIValidation implements ICLIValidation {
 			File inputFile = inputFiles[i];
 			System.out.println("Processing file " + (i+1) + "/" + inputFiles.length + ": " + inputFile.getAbsolutePath());
 
-			String outputReport = outputDir.getAbsolutePath() + '\\' + inputFile.getName().replace(".xml", ".report.html");
+			String outputReport = outputDir.getAbsolutePath() + File.separatorChar + inputFile.getName().replace(".xml", ".report.html");
 
 			vali.runValidationForValiVersion(inputFile.getAbsolutePath(), valiVersion);
 			File outputFile = new File(outputReport);
