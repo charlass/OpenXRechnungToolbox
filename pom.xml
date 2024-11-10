@@ -12,7 +12,8 @@
   
   <properties>
 	<!-- insert keystore password here -->
-	<keystore.password>passwort</keystore.password>
+	<keystore.alias>50hertz</keystore.alias>
+	<keystore.password>passwort-50hertz</keystore.password>
 	
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -85,13 +86,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Windows_32bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.exe, OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>              
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -151,7 +152,7 @@
 	                <url>https://jcthiele.github.io/OpenXRechnungToolbox/</url>
 	                <keystore>keystore.jks</keystore>
 					<tsaurl>http://timestamp.sectigo.com</tsaurl>
-	                <alias>ssl</alias>
+	                <alias>${keystore.alias}</alias>
 	                <storepass>${keystore.password}</storepass>
 	              </configuration>
 	            </execution>
@@ -185,14 +186,14 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Windows_64bit_including_Java.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.exe, CHANGELOG.md, knownIssues.txt, license.txt" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/openJDK" includes="**" prefix="openJDK"/>				   
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>              
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -253,7 +254,7 @@
 	                <url>https://jcthiele.github.io/OpenXRechnungToolbox/</url>
 	                <keystore>keystore.jks</keystore>
 	                <tsaurl>http://timestamp.sectigo.com</tsaurl>
-	                <alias>ssl</alias>
+	                <alias>${keystore.alias}</alias>
 	                <storepass>${keystore.password}</storepass>
 	              </configuration>
 	            </execution>
@@ -284,13 +285,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Windows_64bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.exe, OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>              
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -350,7 +351,7 @@
 	                <url>https://jcthiele.github.io/OpenXRechnungToolbox/</url>
 	                <keystore>keystore.jks</keystore>
 	                <tsaurl>http://timestamp.sectigo.com</tsaurl>
-	                <alias>ssl</alias>
+	                <alias>${keystore.alias}</alias>
 	                <storepass>${keystore.password}</storepass>
 	              </configuration>
 	            </execution>
@@ -381,13 +382,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Linux_32bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt, OpenXRechnungToolbox.sh" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>  						             
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -420,13 +421,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Linux_64bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt, OpenXRechnungToolbox.sh" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>  						             
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -459,13 +460,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Mac_32bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt, OpenXRechnungToolboxMac.sh" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>  						             
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -498,13 +499,13 @@
 		          	<id>zip</id>
 		            <phase>install</phase>
 		            <configuration>
-		              <tasks>
+		              <target>
 						<zip destfile="${project.build.directory}/OpenXRechnungToolbox_${project.version}_Mac_64bit.zip">  
 						   <zipfileset dir="${project.build.directory}" includes="OpenXRechnungToolbox.jar, CHANGELOG.md, knownIssues.txt, license.txt, OpenXRechnungToolboxMac.sh" />
 						   <zipfileset dir="${project.build.directory}/resources" includes="**" prefix="resources"/>
 						   <zipfileset dir="${project.build.directory}/exampleInvoices" includes="**" prefix="exampleInvoices"/>				   
 						</zip>  						             
-		              </tasks>
+		              </target>
 		            </configuration>
 		            <goals>
 		              <goal>run</goal>
@@ -709,7 +710,7 @@
           	<id>copyresources</id>
             <phase>package</phase>
             <configuration>
-              <tasks>
+              <target>
 				<copy todir="${project.build.directory}" >  
 				    <fileset dir="${basedir}">  
 				        <include name="resources/**"/>
@@ -762,7 +763,7 @@
 				        <include name="jsign.jar"/>
 				    </fileset>
 				</copy>
-              </tasks>
+              </target>
             </configuration>
             <goals>
               <goal>run</goal>
@@ -775,9 +776,9 @@
           	<id>copyjar</id>
             <phase>install</phase>
             <configuration>
-              <tasks>          	 
+              <target>          	 
               	<copy file="${project.build.directory}/OpenXRechnungToolbox_${project.version}-jar-with-dependencies.jar" tofile="${project.build.directory}/OpenXRechnungToolbox.jar"/>  
-              </tasks>
+              </target>
             </configuration>
             <goals>
               <goal>run</goal>
