@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.oxt.toolbox.cli.CLICii2ubl;
+import org.oxt.toolbox.cli.CLIJob;
 import org.oxt.toolbox.cli.CLIValidation;
 import org.oxt.toolbox.cli.CLIVisualization;
 import org.oxt.toolbox.converter.ConverterImpl;
@@ -371,6 +372,9 @@ public class AppWindow {
         Option convOption = new Option("con", "conversion", false, "run conversion from CII to UBL without GUI in Command Line Interface (CLI) mode.");
         convOption.setRequired(false);
         vizvalGroup.addOption(convOption);
+        Option jobOption = new Option("job", "job", false, "uses a 'job file' to run the Command Line Interface (CLI) mode.");
+		jobOption.setRequired(false);
+        vizvalGroup.addOption(jobOption);
         baseOptions.addOptionGroup(vizvalGroup);
 
         Option vizInputOption = new Option("i", "input", true, "input invoice file path for cli.");
@@ -388,6 +392,12 @@ public class AppWindow {
         Option configOption = new Option("c", "config", true, "config file path.");
         configOption.setRequired(false);
         baseOptions.addOption(configOption);
+
+		// beg ch
+        Option jobFileOption = new Option("jf", "jobfile", true, "job file path.");
+		jobFileOption.setRequired(false);
+        baseOptions.addOption(jobFileOption);
+		// end ch
 
 		// beg ch
 		Option vizInputFolderOption = new Option("if", "inputfolder", true, "input invoice folder path for cli.");
@@ -426,8 +436,8 @@ public class AppWindow {
 	                }
 	            }  
         	}
-        	
-        	if (cmd.hasOption("visualization") || cmd.hasOption("validation") || cmd.hasOption("conversion")) {
+
+        	if (cmd.hasOption("visualization") || cmd.hasOption("validation") || cmd.hasOption("conversion") || cmd.hasOption("job")) {
 	        	// CLI mode
         		if (cmd.hasOption("visualization")) {
             		if (cmd.hasOption("input") & cmd.hasOption("output")) {
@@ -459,6 +469,17 @@ public class AppWindow {
             			throw new ParseException("not enough arguments for cli validation");
             		}            		
         		}
+				// beg ch
+				if (cmd.hasOption("job")){
+					if (cmd.hasOption("jobfile")) {
+						CLIJob job = new CLIJob();
+						job.processJobFile(cmd.getOptionValue("jobfile"), config);
+					}
+					else {
+						throw new ParseException("not enough arguments for cli job");
+					}
+				}
+				// end  ch
         		if (cmd.hasOption("conversion")) {
         			if (cmd.hasOption("input") & cmd.hasOption("output")) {
         				CLICii2ubl conversion = new CLICii2ubl();
@@ -491,7 +512,9 @@ public class AppWindow {
 	        help.printHelp("\n"
 	        		+ "Gui mode: java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar --config <path to config file> \n"
 	        		+ "CLI mode validation: java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar --validation --input <path to invoice file> --output <path of report file> --valiVersion <version of XRechnung to validate against> \n"
-	        		+ "CLI mode visualization: java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar --visualization --input <path to invoice file> --output <path of visualization file> --type <pdf or html>", baseOptions);
+	        		+ "CLI mode visualization: java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar --visualization --input <path to invoice file> --output <path of visualization file> --type <pdf or html>"
+	        		+ "CLI job mode job: java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar --job --jobfile <path to job file>"
+					, baseOptions);
 	        System.exit(1);
 	    }
         				

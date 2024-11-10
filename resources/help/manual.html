@@ -117,6 +117,7 @@ Released   : 20130801
 				<div style="text-indent:30px;"><a href="#clivali">Validierung</a><br /></div>
 				<div style="text-indent:30px;"><a href="#cliviz">Visualisierung</a><br /></div>
 				<div style="text-indent:30px;"><a href="#clicon">Konvertierung</a><br /></div>
+				<div style="text-indent:30px;"><a href="#clijob">Job-File</a><br /></div>
 			</p>
 			
 			
@@ -591,7 +592,7 @@ Released   : 20130801
 			<h4><a id="clicon">Konvertierung von CII zu UBL im Kommandozeilen-Modus</a></h4>			
 			<p class="h4">
 			Mit dem Kommandozeilen-Parameter <i>-con</i> bzw. <i>--conversion</i> kann die Konvertierungsfunktion von CII zu UBL genutzt werden.
-			Der Kommandozeilen-Aufruf für die Konverztierung einer CII-Rechnung kann dann z.B. wie folgt aussehen:
+			Der Kommandozeilen-Aufruf für die Konvertierung einer CII-Rechnung kann dann z.B. wie folgt aussehen:
 			</p>
 			<p class="h4">
 			Mit der .jar-Datei:<br />
@@ -606,6 +607,44 @@ Released   : 20130801
 			<i>-i</i> bzw. <i>--input</i>: Pfad zu der zu konvertierenden CII-Rechnung <br />
 			<i>-o</i> bzw. <i>--output</i>: Pfad unter dem die erzeugte UBL-Rechnung gespeichert werden soll <br />
 			</p>
+
+			<h4><a id="clijob">Job-Files für Validierung und Visualisierung im Kommandozeilen-Modus</a></h4>
+			<p class="h4">
+				Mit dem Kommandozeilen-Parameter <i>-job</i> kann ein "Task File" genutzt werden,
+				was die gewünschte Verarbeitung von mehreren Dateien sehr effizient unterstützt.
+				Der Kommandozeilen-Aufruf kann dann z.B. wie folgt aussehen:
+			</p>
+			<p class="h4">
+				Mit der .jar-Datei:<br />
+				<i>java -Dlog4j2.configurationFile=./resources/log4j2.xml -jar OpenXRechnungToolbox.jar -job --jobfile example-job.xml</i>.
+			</p>
+			<p class="h4">
+				Mit der .exe-Datei:<br />
+				<i>OpenXRechnungToolbox.exe -job --jobfile example-job.xml</i>.
+			</p>
+			<p class="h4">
+				Die Parameter sind: <br/>
+				<i>-jf</i> bzw. <i>--jobfile</i>: Pfad zu dem Jobfile <br />
+			</p>
+			<p class="h4">
+				Job-File Aufbau: <br/>
+				Der <i>input</i> Parameter muss angegeben werden. <br/>
+				Falls die Datei validiert werden soll, dann müssen die <i>valiversion</i> und <i>validate</i> Parameter angegeben werden. <br/>
+				Falls die Datei visualisiert werden soll, dann muss der <i>visualize</i> Parameter angegeben werden. <br/>
+			</p>
+			<p  class="code">
+				&lt;?xml version="1.0" encoding="UTF-8"?&gt;  <br/>
+				&lt;tasks&gt;  <br/>
+				&nbsp;&nbsp;	&lt;description&gt;Some text...&lt;/description&gt;  <br/>
+				&nbsp;&nbsp;	&lt;task&gt;  <br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;		&lt;input&gt;c:\temp\my-invoice.xml&lt;/input&gt;  <br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;		&lt;valiversion&gt;3.0.2&lt;/valiversion&gt;  <br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;		&lt;validate&gt;c:\temp\my-invoice-validation-output.html&lt;/validate&gt;  <br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;		&lt;visualize&gt;c:\temp\my-invoice-visualization-output.html&lt;/visualize&gt;  <br/>
+				&nbsp;&nbsp;	&lt;/task&gt;  <br/>
+				&lt;/tasks&gt;  <br/>
+			</p>
+
 
 
 			

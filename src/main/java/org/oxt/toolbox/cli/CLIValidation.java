@@ -15,6 +15,8 @@ import org.oxt.toolbox.validation.ValidatorImpl;
  */
 public class CLIValidation implements ICLIValidation {
 
+	private final ValidatorImpl vali = new ValidatorImpl();
+
 	/**
 	 * Constructor
 	 */
@@ -41,13 +43,25 @@ public class CLIValidation implements ICLIValidation {
 		}
 		String valiVersions = AppProperties.prop.getProperty("available_valiVersions");
 		List<String> valiVersionsList = Arrays.asList(valiVersions.split(","));			
-		if (valiVersionsList.contains(valiVersion)) {				
-			ValidatorImpl vali = new ValidatorImpl();
-			vali.runValidation(inputFile.getAbsolutePath(), valiVersion);
+		if (valiVersionsList.contains(valiVersion)) {
+
+			// ch old code:
+			// Creates and initializes a ValidatorImpl *each* time within the runValidation() method
+			// ValidatorImpl vali = new ValidatorImpl();
+			// vali.runValidation(inputFile.getAbsolutePath(), valiVersion);
+
+			// ch new code:
+			// The ValidatorImpl is now a field.
+			// The ValidatorImpl class has also been changed to keep its internal configuration in-memory.
+			// Therefore, the performance penalty for initializing the ValidatorImpl must be paid only once, provided subsequent calls use the same valiVersion.
+			vali.loadConfiguration(valiVersion);
+			vali.runValidationForValiVersion(inputFile.getAbsolutePath(), valiVersion);
+
 			File outputFile = new File(outputReport);
 			if (outputFile.exists()) {
 				outputFile.delete();
-			}			
+			}
+
 			vali.saveAs(outputReport);							
 		} else {
 			throw new Exception("Unknown valiVersion: "+valiVersion);
@@ -95,7 +109,6 @@ public class CLIValidation implements ICLIValidation {
         }
 
 		System.out.println("Loading the Kosit Validator...");
-		ValidatorImpl vali = new ValidatorImpl();
 		vali.loadConfiguration(valiVersion);
 
 		System.out.println("Processing " + inputFiles.length + " files...");
@@ -111,7 +124,9 @@ public class CLIValidation implements ICLIValidation {
 			if (outputFile.exists()) {
 				outputFile.delete();
 			}
+
 			vali.saveAs(outputReport);
+
 			System.out.println("Created report  " + (i+1) + "/" + inputFiles.length + ": " + outputFile.getAbsolutePath());
 		}
 
