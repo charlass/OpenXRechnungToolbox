@@ -18,7 +18,7 @@ public class Task {
      * @return A file path
      */
     public String getInput() {
-        return input;
+        return input != null ? input.trim() : null;
     }
 
     public void setInput(String input) {
@@ -31,7 +31,7 @@ public class Task {
      * @return A file path
      */
     public String getValidate() {
-        return validate;
+        return validate != null ? validate.trim() : null;
     }
 
     public void setValidate(String validate) {
@@ -39,7 +39,7 @@ public class Task {
     }
 
     public String getVisualize() {
-        return visualize;
+        return visualize != null ? visualize.trim() : null;
     }
 
     /**
@@ -52,7 +52,7 @@ public class Task {
     }
 
     public String getValiversion() {
-        return valiversion;
+        return valiversion != null ? valiversion.trim() : null;
     }
 
     /**
