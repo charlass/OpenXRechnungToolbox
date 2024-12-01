@@ -167,13 +167,40 @@ public class VisualizerImpl implements IVisualizer {
 
         Document doc = builder.parse(targetStream);
         DOMSource source = new DOMSource(doc);
- 
+
+
+		// beg ch
+		//
+		// Unten ist folgender Code: TransformerFactory.newInstance();
+		// Anscheinend wird intern dann irgendwie der Classpath nach dem erstbesten XSLT Prozessor durchsucht.
+		//
+		// In Intellij Debug wird eine Saxon Factory erzeugt, wohl auch weil Saxon imDebugger  Classpath zuerst auftaucht.
+		// Aber der Maven Build Output liefert zur Laufzeit eine Xalan Factory, und die liefert dann Runtime Fehler...
+		//
+		// Lösung: Java konfigurieren, so dass der Saxon Prozessor verwendet wird
+		System.setProperty(
+				"javax.xml.transform.TransformerFactory",
+				"net.sf.saxon.TransformerFactoryImpl");
+		// end ch
+
+
         // Create an instance of the TransformerFactory
-        TransformerFactory transfomerFactory = TransformerFactory.newInstance();
+		TransformerFactory transfomerFactory = TransformerFactory.newInstance();
+
+
+		// beg ch
+		var transfomerFactoryClass = transfomerFactory.getClass();
+		if(! transfomerFactoryClass.getName().contains("saxon")) {
+			String message = "Falscher XSLT Transformer, soll: saxon, ist: " + transfomerFactoryClass.getName();
+			System.out.println(message);
+			logger.error(message);
+		}
+		// end ch
+
 
         // Obtain the XSLT transformer
         Transformer transformer = transfomerFactory.newTransformer(new StreamSource(xslPath));
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");        
+		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
         transformer.transform(source, result);

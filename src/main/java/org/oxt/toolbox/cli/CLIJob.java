@@ -33,10 +33,14 @@ public class CLIJob {
             System.out.println("Processing task " + (i + 1) + "/" + taskArray.length + ": " + task.getInput());
 
             if (task.getValidate() != null) {
+                System.out.println("Processing task " + (i + 1) + "/" + taskArray.length + ": validating...");
                 val.cliValidation(task.getInput(), task.getValidate(), task.getValiversion(), config);
+                System.out.println("Processing task " + (i + 1) + "/" + taskArray.length + ": created validation: " + task.getValidate());
             }
             if (task.getVisualize() != null) {
+                System.out.println("Processing task " + (i + 1) + "/" + taskArray.length + ": visualizing...");
                 viz.cliVisualization(task.getInput(), task.getVisualize(), false, config);
+                System.out.println("Processing task " + (i + 1) + "/" + taskArray.length + ": created visualization: " + task.getVisualize());
             }
         }
 

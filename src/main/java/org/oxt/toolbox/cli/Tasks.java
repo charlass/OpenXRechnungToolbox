@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 /**
  * Describe the root element of a jobfile, a "tasks" node
  */
+@SuppressWarnings({"LombokGetterMayBeUsed", "LombokSetterMayBeUsed"})
 @XmlRootElement
 public class Tasks {
     private String description;
@@ -16,6 +17,7 @@ public class Tasks {
         return tasks != null ? tasks : new Task[0];
     }
 
+    @SuppressWarnings("unused")
     public void setTasks(Task[] tasks) {
         this.tasks = tasks;
     }

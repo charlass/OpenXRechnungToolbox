@@ -15,7 +15,9 @@ import org.oxt.toolbox.validation.ValidatorImpl;
  */
 public class CLIValidation implements ICLIValidation {
 
+	// beg ch
 	private final ValidatorImpl vali = new ValidatorImpl();
+	// end ch
 
 	/**
 	 * Constructor
@@ -45,6 +47,8 @@ public class CLIValidation implements ICLIValidation {
 		List<String> valiVersionsList = Arrays.asList(valiVersions.split(","));			
 		if (valiVersionsList.contains(valiVersion)) {
 
+			// beg ch
+
 			// ch old code:
 			// Creates and initializes a ValidatorImpl *each* time within the runValidation() method
 			// ValidatorImpl vali = new ValidatorImpl();
@@ -56,6 +60,8 @@ public class CLIValidation implements ICLIValidation {
 			// Therefore, the performance penalty for initializing the ValidatorImpl must be paid only once, provided subsequent calls use the same valiVersion.
 			vali.loadConfiguration(valiVersion);
 			vali.runValidationForValiVersion(inputFile.getAbsolutePath(), valiVersion);
+
+			// end ch
 
 			File outputFile = new File(outputReport);
 			if (outputFile.exists()) {
