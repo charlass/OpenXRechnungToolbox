@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>OpenXRechnungToolbox</groupId>
   <artifactId>org.oxt</artifactId>
-  <version>3.1.0.50</version>
+  <version>3.1.0.52</version>
   <name>OpenXRechnungToolbox</name>
   <description>This is the OpenXRechnungToolbox by Dr. Jan C. Thiele</description>
   <packaging>jar</packaging>
@@ -856,6 +856,14 @@
 	        </execution>   
 	      </executions>	
 	  </plugin>
+	   <plugin>
+		   <groupId>org.apache.maven.plugins</groupId>
+		   <artifactId>maven-compiler-plugin</artifactId>
+		   <configuration>
+			   <source>11</source>
+			   <target>11</target>
+		   </configuration>
+	   </plugin>
    </plugins>
     </build>   
 </project>

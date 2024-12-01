@@ -189,7 +189,7 @@ public class VisualizerImpl implements IVisualizer {
 
 
 		// beg ch
-		var transfomerFactoryClass = transfomerFactory.getClass();
+		Class transfomerFactoryClass = transfomerFactory.getClass();
 		if(! transfomerFactoryClass.getName().contains("saxon")) {
 			String message = "Falscher XSLT Transformer, soll: saxon, ist: " + transfomerFactoryClass.getName();
 			System.out.println(message);

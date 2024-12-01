@@ -22,8 +22,8 @@ public class CLIJob {
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         Tasks tasks = (Tasks) jaxbUnmarshaller.unmarshal(new File(jobFilePath));
 
-        var val = new CLIValidation();
-        var viz = new CLIVisualization();
+        CLIValidation val = new CLIValidation();
+        CLIVisualization viz = new CLIVisualization();
 
         // Process each task
         Task[] taskArray = tasks.getTasks();
